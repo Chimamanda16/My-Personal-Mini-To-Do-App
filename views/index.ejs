@@ -1,0 +1,54 @@
+<%- include("header") -%>
+<body>
+	<div class="content">
+		<!-- Title -->
+		<h1>My <%= heading %> Goals</h1>
+		<!-- Text Input -->
+		<div class="input">
+			<form class="input" action="/" method="post">
+				<input placeholder="Add New Item" type="text" name="newitem" autocomplete="off">
+				<button type="submit" name="list" value=<%= heading %> >+</button>
+			</form>
+		</div>
+		<!-- Main List -->
+		<div class="list-cont">
+			<!-- User Input -->
+			<% for (var i= 0; i<itemsArray.Todo.length; i++){ %>
+				<div class="list-item">
+					<input type="checkbox">
+					<p> <%= itemsArray.Todo[i] %> </p>
+				</div>
+				<% } %>
+
+		</div>
+			<!-- Date Container-->
+			<div class="date-cont">
+				<p> <%= date %> </p>
+			</div>
+
+			<!-- Quotes Container -->
+
+			<div class="quote">
+				<%= quote %><br/><br/>
+				<a>❖ <%= author %></a>
+			</div>
+
+
+
+		<!-- Floating Circles -->
+			<ul class="circles">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+	</div>
+
+	</body>
+	</html>

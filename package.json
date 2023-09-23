@@ -1,0 +1,17 @@
+{
+  "name": "my-personal-mini-to-do-app",
+  "version": "1.0.0",
+  "description": "Making a mini app for my 2023 goals",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rexha",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.0"
+  }
+}
