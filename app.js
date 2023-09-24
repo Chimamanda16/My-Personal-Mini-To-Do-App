@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 mongoose.set("strictQuery", false);
 const connectDb = async()=>{
     try{
-        const conn = await mongoose.connect(process.env.MONGO_URI)
+        const conn = await mongoose.connect(process.env.MONGO_URI);
         console.log(`MongoDb connected: ${conn.connection.host}`);
     }
     catch (error){
@@ -129,7 +129,7 @@ app.post("/", function(req, res){
 });
 
 connectDb().then(()=>{
-    app.listen(process.env.PORT || 5000, function(req, res){
+    app.listen(process.env.PORT || 5000, function(){
         console.log("Server has started on port 5000");
     });
 });
