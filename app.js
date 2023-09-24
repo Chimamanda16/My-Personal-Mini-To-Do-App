@@ -4,7 +4,10 @@ const app = express();
 const mongoose = require("mongoose");
 const dateModule = require(__dirname + "/date.js");
 const realDate = dateModule.getDate();
+const Item = require("./models/list.model");
+
 require("dotenv").config();
+
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let genQuote = "Just one small positive thought in the morning can change your whole day";
 let genAuthor = "Dalai Lama";
@@ -14,22 +17,17 @@ app.use(express.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 
 // Making a connection to the database
-mongoose.connect(process.env.connectionString).then((response) =>{
-    app.listen(5000, function(req, res){
-        console.log("Server has started on port 5000");
-    });    
-}).catch((err) =>{
-    console.log(err);
-});
-
-// Creating a Schema
-const listSchema = new mongoose.Schema({
-    Name: String,
-    Todo: []
-});
-
-// Creating a model
-const Item = mongoose.model("List", listSchema);
+mongoose.set("strictQuery", false);
+const connectDb = async()=>{
+    try{
+        const conn = await mongoose.connect(process.env.MONGO_URI)
+        console.log(`MongoDb connected: ${conn.connection.host}`);
+    }
+    catch (error){
+        console.log(error);
+        process.exit(1);
+    }
+}
 
 function getYear(res){
     // API Request For The Motivational Quotes
@@ -55,7 +53,6 @@ function getYear(res){
         });
     });
 }
-
 
 // Get Request For The Home Route
 app.get("/", function(req, res){
@@ -90,6 +87,7 @@ app.get("/:month", (req, res) =>{
     getMonth(reqMonthNew, res);
 });
 
+//Handling post requests
 app.post("/", function(req, res){
     let routeName = (req.body.list.slice(0, 3).toLowerCase());
     if(routeName === "202"){
@@ -128,4 +126,10 @@ app.post("/", function(req, res){
             }
         });    
     } 
+});
+
+connectDb().then(()=>{
+    app.listen(process.env.PORT || 5000, function(req, res){
+        console.log("Server has started on port 5000");
+    });
 });
